@@ -36,32 +36,32 @@ const rl2 = createInterface({
 
 let solution2: number = 0;
 x = 50;
+let negative: boolean;
 for await (const line of rl2) {
-    process.stdout.write(line);
     delta = Number(line.slice(1));
-    let negative = line[0] === 'L';
-    let count = 0;
-    const oldX = x;
-    for (let index = 0; index < delta; index++) {
-        if (negative) {
-            x--;
-            if (x < 0) {
-                x+= 100;
-            }
-        } else {
-            x++;
-            if (x >= 100) {
-                x -= 100;
-            }
-        }
-        if (x === 0) {
-            count++;
-        }
-    }
-    process.stdout.write(`\t\t${count}`);
-    process.stdout.write(`\t\t${oldX} ${negative ? '<-' : '->'} ${x}\n`);
+    negative = line[0] === 'L';
 
-    solution2 += count;
+    solution2 += Math.trunc(delta / 100); // we pass the zero this many times
+    delta = delta % 100; // we don't care about extra rotations from here
+
+    // Remember: from here delta is smaller than 100!
+
+    if (negative) {
+        if (x !== 0 && (x - delta) < 0) { // check if we reach the negatives while going down, doesn't count if we start on zero
+            solution2++; // we passed zero on our way down
+        }
+        x = (x - delta + 100) % 100; // add 100 because -13 % 100 is still -13 and not 87
+    } else {
+        if (x !== 0 && (x + delta) > 100) { // check if we go over 100 on our way up, doesn't count if we start on zero
+            solution2++; // we passed 100 on our way up (that means we passed zero)
+        }
+        x = (x + delta) % 100; // if over 100, wrap around
+    }
+
+    if (x === 0) {
+        solution2++; // we landed on zero
+    }
+
 }
 
 console.log('SOLUTION2:', solution2);
