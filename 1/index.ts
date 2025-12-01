@@ -52,7 +52,7 @@ for await (const line of rl2) {
         }
         x = (x - delta + 100) % 100; // add 100 because -13 % 100 is still -13 and not 87
     } else {
-        if (x !== 0 && (x + delta) > 100) { // check if we go over 100 on our way up, doesn't count if we start on zero
+        if ((x + delta) > 100) { // check if we go over 100 on our way up, doesn't count if we start on zero
             solution2++; // we passed 100 on our way up (that means we passed zero)
         }
         x = (x + delta) % 100; // if over 100, wrap around
