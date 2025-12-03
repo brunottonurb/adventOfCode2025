@@ -55,6 +55,16 @@ for (const range of ranges) {
     const [start, end] = range.split('-').map(Number);
     
     for (let current = start; current <= end; current++) {
+        if (current.toString()[0] === '0') {
+            console.log('LEADING ZERO!!!!11');
+            continue;
+        }
+
+        if (current.toString().length === 1) {
+            console.log('LENGTH 1');
+            continue;
+        }
+
         const currentString = current.toString();
         const length = currentString.length;
 
