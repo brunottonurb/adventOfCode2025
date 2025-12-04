@@ -1,0 +1,23 @@
+{
+  "name": "aoc2025",
+  "version": "1.0.0",
+  "description": "https://adventofcode.com/2025/",
+  "homepage": "https://github.com/brunottonurb/adventOfCode2025#readme",
+  "bugs": {
+    "url": "https://github.com/brunottonurb/adventOfCode2025/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunottonurb/adventOfCode2025.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Bruno Péjac",
+  "type": "module",
+  "main": "''",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
