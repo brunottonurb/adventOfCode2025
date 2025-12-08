@@ -38,7 +38,7 @@ const shortesNConnections = Object.entries(distances).sort(([ ,v1], [ ,v2]) => v
 console.log(circuits);
 
 for (let index = 0; index < n; index++) {
-    const [pointA, pointB] = shortesNConnections[index][0].split('-'); //.map((coordinatesStr) => coordinatesStr.split(','));
+    const [pointA, pointB] = shortesNConnections[index][0].split('-');
     console.log(pointA, pointB);
     
     const circuitsWithAOrB = circuits.filter((c) => c.includes(pointA) || c.includes(pointB));
@@ -46,7 +46,7 @@ for (let index = 0; index < n; index++) {
     const newCircuit = Array.from(new Set<string>(circuitsWithAOrB.flat()))
     console.log(newCircuit);
 
-    circuits = circuits.filter((c) => !c.includes(pointA) && !c.includes(pointB)) //.push(newCircuit);
+    circuits = circuits.filter((c) => !c.includes(pointA) && !c.includes(pointB));
     circuits.push(newCircuit);
     console.log(circuits);
 }
@@ -57,3 +57,30 @@ circuits.sort((a, b) => b.length - a.length);
 const product = circuits[0].length * circuits[1].length * circuits[2].length;
 
 console.log(product);
+
+// Part 2
+
+const shortestConnections = Object.entries(distances).sort(([ ,v1], [ ,v2]) => v1 - v2);
+
+let index = 0;
+while (true) {
+    const [pointA, pointB] = shortestConnections[index][0].split('-');
+    console.log(pointA, pointB);
+    
+    const circuitsWithAOrB = circuits.filter((c) => c.includes(pointA) || c.includes(pointB));
+    console.log(circuitsWithAOrB);
+    const newCircuit = Array.from(new Set<string>(circuitsWithAOrB.flat()))
+    console.log(newCircuit);
+
+    circuits = circuits.filter((c) => !c.includes(pointA) && !c.includes(pointB));
+
+    if (circuits.length === 0) {
+        console.log('DONE');
+        console.log(Number(pointA.split(',')[0]) * Number(pointB.split(',')[0]));
+        process.exit();
+    }
+
+    circuits.push(newCircuit);
+    console.log(circuits);
+    index++;
+}
