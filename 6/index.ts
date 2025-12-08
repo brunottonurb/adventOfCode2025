@@ -1,7 +1,10 @@
 import { createReadStream } from 'fs';
+import { readFile } from 'fs/promises';
 import { createInterface } from 'readline';
 
-const fileStream = createReadStream('input.txt');
+const fileName = 'input.txt';
+
+const fileStream = createReadStream(fileName);
 const rl = createInterface({
     input: fileStream,
 });
@@ -44,4 +47,49 @@ operands.forEach((arr, index) => {
 
 console.log(sum);
 
-// Part 2
+// Part 2'
+
+const file = await readFile(fileName, 'utf-8');
+const lines = file.split('\n');
+lines.pop();
+lines.pop();
+
+const inputs: number[][] = [];
+
+let n = 0;
+let index = 0;
+while (n < lines[0].length) {
+    let digit: string = '';
+    for (const line of lines) {
+        digit += line[n];
+    }
+    if (digit.match(/^\s*$/)) {
+        index++;
+    } else {
+        if (!inputs[index]) {
+            inputs[index] = [Number(digit)];
+        } else {
+            inputs[index].push(Number(digit));
+        }
+    }
+    n++;
+}
+
+console.log(inputs);
+
+sum = 0;
+inputs.forEach((arr, index) => {
+    switch (operators[index]) {
+        case '*':
+            sum += arr.reduce((prev, curr) => prev * curr, 1);
+            break;
+        case '+':
+            sum += arr.reduce((prev, curr) => prev + curr, 0);
+            break;
+        default:
+            console.error('Unknown operation', operators[index]);
+            break;
+    }
+});
+
+console.log(sum);
