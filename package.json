@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "memoize": "^10.2.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "z3-solver": "^4.15.4"
   }
 }
